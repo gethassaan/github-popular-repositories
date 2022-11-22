@@ -17,15 +17,19 @@ export const RETURN_SUCCESS_REQUEST_RESPONSE = (
   return res.status(response_status).send(message);
 };
 
-export const formatLanguages = (languages: string): string[] => {
+export const formatLanguages = (languages: string): string => {
   const updatedLanguages = languages.split(',');
   let formatedLanguages = '';
   for (let index = 0; index < updatedLanguages.length; index++) {
-    index < updatedLanguages.length - 2
-      ? formatedLanguages.concat(`language:${updatedLanguages[index]}+`)
-      : formatedLanguages.concat(`language:${updatedLanguages[index]}`);
+    index < updatedLanguages.length - 1
+      ? (formatedLanguages = formatedLanguages.concat(
+          `language:${updatedLanguages[index]}+`
+        ))
+      : (formatedLanguages = formatedLanguages.concat(
+          `language:${updatedLanguages[index]}`
+        ));
   }
-  return updatedLanguages;
+  return formatedLanguages;
 };
 
 export const formatDateComparison = (dateComparison: string): string => {

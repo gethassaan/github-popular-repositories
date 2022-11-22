@@ -26,7 +26,7 @@ export class IndexService {
         DOMAIN_NAME +
           `search/repositories?q=created:${dateComparison}${startingDate}+${updatedLanguages}&sort=stars&order=${order}&per_page=${limit}&page=${page}`
       );
-      RETURN_SUCCESS_REQUEST_RESPONSE(res, result.data);
+      RETURN_SUCCESS_REQUEST_RESPONSE(res, result?.data);
     } catch (error) {
       console.log('request failed: ' + error);
       RETURN_BAD_REQUEST_RESPONSE(
