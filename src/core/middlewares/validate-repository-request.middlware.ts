@@ -1,4 +1,8 @@
-import { ERROR_MESSAGES } from '../../common/constnats/common.constants';
+import { RETURN_BAD_REQUEST_RESPONSE } from './../../common/utilities/common.utilities';
+import {
+  ERROR_MESSAGES,
+  STATUS_CODES,
+} from '../../common/constnats/common.constants';
 import { Request, Response, NextFunction } from 'express';
 import { RepositoryQueryEntity } from '@root/src/common/entity/repository.entity';
 
@@ -22,7 +26,11 @@ export const validateRepositoryRequest = (
     validDataType = false;
   }
   if (!validDataType) {
-    res.status(400).send({ error: ERROR_MESSAGES.INVALID_PRAMS_FORMAT });
+    RETURN_BAD_REQUEST_RESPONSE(
+      res,
+      ERROR_MESSAGES.INVALID_PRAMS_FORMAT,
+      STATUS_CODES.BAD_REQUEST_CODE
+    );
   } else {
     next();
   }
