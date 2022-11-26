@@ -6,7 +6,7 @@ import {
   RETURN_SUCCESS_REQUEST_RESPONSE,
 } from '../../common/utilities/common.utilities';
 import { ERROR_MESSAGES } from '../../common/constnats/common.constants';
-import { RepositoryQueryEntity } from '@root/src/common/entity/repository.entity';
+import { RepositoryQueryEntity } from '../../common/entity/repository.entity';
 import axios from 'axios';
 
 export class IndexService {
@@ -21,7 +21,6 @@ export class IndexService {
 
     const updatedLanguages = formatLanguages(languages);
     try {
-      console.log('request receieved: ' + new Date().toUTCString());
       let result = await axios.get(
         DOMAIN_NAME +
           `search/repositories?q=created:${dateComparison}${startingDate}+${updatedLanguages}&sort=stars&order=${order}&per_page=${limit}&page=${page}`

@@ -10,6 +10,7 @@ import hpp from 'hpp';
 import { RateLimiterMiddleware } from '../../core/middlewares/rate-limiter.middleware';
 import { ERROR_MESSAGES, STATUS_CODES } from '../constnats/common.constants';
 import { RETURN_BAD_REQUEST_RESPONSE } from '../utilities/common.utilities';
+import { requestLogger } from '../../core/middlewares/logger.middleware';
 
 export function server() {
   const app = express.default();
@@ -17,30 +18,37 @@ export function server() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
+
   /**
    * Middleware: Helmet is a collection of 11 smaller middleware functions that set HTTP response headers.
    */
+
   app.use(helmet());
 
   /**
    * Middleware: Compress response bodies for all request
    */
+
   app.use(compression());
 
   /**
    * Middleware: protect against HTTP Parameter Pollution attacks
    */
+
   app.use(hpp());
 
   /**
    * Middleware: Used to limit repeated requests to public APIs and/or endpoints.
    */
+
   RateLimiterMiddleware.init(app), // these variables will be moved to the enviornment file
     /**
      * Middleware: protect against cross-origin HTTP requests.
      */
+
     CorsMiddleware.init(app); // these variables will be moved to the enviornment file
 
+  app.use(requestLogger);
   app.use('/', indexRouter);
   // catch 404 and forward to error handler
   app.use(function (
