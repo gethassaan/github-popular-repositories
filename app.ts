@@ -1,3 +1,3 @@
-import {Server} from './src/core/server.core';
+import { Server } from './src/core/server.core';
 
-export default new Server().bootstarp();
+export default new Server();
