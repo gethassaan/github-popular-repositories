@@ -17,8 +17,7 @@ export class Server {
         console.log('dev', `Worker ${worker.process.pid} started`); // this log will be replaced by logger function
       });
     } else {
-      const server = new ServerConfiguration();
-      server.init();
+      new ServerConfiguration(); // this will start the server
     }
   }
 
