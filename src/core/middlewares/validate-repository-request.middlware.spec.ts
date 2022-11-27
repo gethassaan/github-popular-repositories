@@ -1,12 +1,12 @@
 import { NextFunction } from 'express';
-import { validateRepositoryRequest } from './validate-repository-request.middlware';
+import { validateRepositoryRequestMiddleware } from './validate-repository-request.middlware';
 describe('Validate Repository Request', () => {
   /**
    * Mocked Express Request object
    */
 
-  let mockRequest: Partial<Request>;
-  let mockResponse: Partial<Response>;
+  let mockRequest: any;
+  let mockResponse: any;
   let nextFunction: NextFunction = jest.fn();
 
   beforeEach(() => {
@@ -27,7 +27,11 @@ describe('Validate Repository Request', () => {
 
   it('checkMandatoryQueryParams', () => {
     // @ts-ignore
-    validateRepositoryRequest(mockRequest, mockResponse, nextFunction);
+    validateRepositoryRequestMiddleware(
+      mockRequest,
+      mockResponse,
+      nextFunction
+    );
     expect(nextFunction).toHaveBeenCalled();
   });
 });

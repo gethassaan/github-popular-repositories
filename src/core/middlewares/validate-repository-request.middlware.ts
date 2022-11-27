@@ -4,9 +4,9 @@ import {
   STATUS_CODES,
 } from '../../common/constnats/common.constants';
 import { Request, Response, NextFunction } from 'express';
-import { RepositoryQueryEntity } from '@root/src/common/entity/repository.entity';
+import { RepositoryQueryEntity } from '../../common/entity/repository.entity';
 
-export const validateRepositoryRequest = (
+export const validateRepositoryRequestMiddleware = (
   req: Request,
   res: Response,
   next: NextFunction
