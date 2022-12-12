@@ -5,6 +5,7 @@ import {
 } from '../../common/constnats/common.constants';
 import { Request, Response, NextFunction } from 'express';
 import { RepositoryQueryEntity } from '../../common/entity/repository.entity';
+import { DateTime } from 'luxon';
 
 export const validateRepositoryRequestMiddleware = (
   req: Request,
@@ -16,7 +17,7 @@ export const validateRepositoryRequestMiddleware = (
   let validDataType = true;
   //assuming the values will be present in all scenarios
   if (
-    typeof startingDate !== 'string' ||
+    DateTime.fromFormat(startingDate, 'YYYY-MM-DD').isValid ||
     typeof dateComparison !== 'string' ||
     typeof languages !== 'string' ||
     typeof limit !== 'string' ||
