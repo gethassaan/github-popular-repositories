@@ -1,11 +1,10 @@
 import 'dotenv/config';
 import { server } from './server.setup';
 export default class ServerConfiguration {
-  constructor() {}
   get port() {
     return process.env.PORT || '3000';
   }
-  public init() {
+  constructor() {
     /**
      * Listen on provided port, on all network interfaces.
      */

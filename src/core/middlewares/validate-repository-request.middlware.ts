@@ -1,8 +1,13 @@
-import { ERROR_MESSAGES } from '../../common/constnats/common.constants';
+import { RETURN_BAD_REQUEST_RESPONSE } from './../../common/utilities/common.utilities';
+import {
+  ERROR_MESSAGES,
+  STATUS_CODES,
+} from '../../common/constnats/common.constants';
 import { Request, Response, NextFunction } from 'express';
-import { RepositoryQueryEntity } from '@root/src/common/entity/repository.entity';
+import { RepositoryQueryEntity } from '../../common/entity/repository.entity';
+import { DateTime } from 'luxon';
 
-export const validateRepositoryRequest = (
+export const validateRepositoryRequestMiddleware = (
   req: Request,
   res: Response,
   next: NextFunction
@@ -12,7 +17,7 @@ export const validateRepositoryRequest = (
   let validDataType = true;
   //assuming the values will be present in all scenarios
   if (
-    typeof startingDate !== 'string' ||
+    DateTime.fromFormat(startingDate, 'YYYY-MM-DD').isValid ||
     typeof dateComparison !== 'string' ||
     typeof languages !== 'string' ||
     typeof limit !== 'string' ||
@@ -22,7 +27,11 @@ export const validateRepositoryRequest = (
     validDataType = false;
   }
   if (!validDataType) {
-    res.status(400).send({ error: ERROR_MESSAGES.INVALID_PRAMS_FORMAT });
+    RETURN_BAD_REQUEST_RESPONSE(
+      res,
+      ERROR_MESSAGES.INVALID_PRAMS_FORMAT,
+      STATUS_CODES.BAD_REQUEST_CODE
+    );
   } else {
     next();
   }

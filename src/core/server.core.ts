@@ -3,8 +3,7 @@ import * as os from 'os';
 import ServerConfiguration from '../common/configurations/server.configuration';
 
 export class Server {
-  constructor() {}
-  public bootstarp() {
+  constructor() {
     if (process.env.NODE_ENV === 'production' && cluster.isPrimary) {
       console.log('dev', `Master ${process.pid} started`); // this log will be replaced by logger function
       for (let i = 0; i < this.numberOfCores; i++) {
@@ -18,8 +17,7 @@ export class Server {
         console.log('dev', `Worker ${worker.process.pid} started`); // this log will be replaced by logger function
       });
     } else {
-      const server = new ServerConfiguration();
-      server.init();
+      new ServerConfiguration(); // this will start the server
     }
   }
 
